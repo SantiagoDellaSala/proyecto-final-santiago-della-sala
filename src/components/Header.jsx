@@ -10,7 +10,7 @@ const Header = () => {
   const itemCount = cartItems.length;
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className="shadow-sm">
       <Container>
         <Navbar.Brand as={Link} to="/">Yu-Gi-Oh! Store</Navbar.Brand>
         <Navbar.Toggle />
