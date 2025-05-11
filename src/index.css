@@ -3,3 +3,15 @@
   margin: 0 auto;
   padding: 0;
 }
+
+.small-card {
+  max-width: 220px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+}
+
+.small-card-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Para que no se corte */
+}
