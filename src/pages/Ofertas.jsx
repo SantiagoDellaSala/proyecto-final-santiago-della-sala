@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
+import CardGrid from '../components/CardGrid'; // Asegúrate de importar CardGrid
 
 const Ofertas = () => {
   const [cards, setCards] = useState([]);
@@ -20,10 +21,11 @@ const Ofertas = () => {
       });
   }, []);
 
-  const getPrices = () => {
-    const original = (Math.random() * (12 - 5) + 5).toFixed(2);
-    const discount = (original * 0.7).toFixed(2); // 30% off
-    return { original, discount };
+  // Función para obtener precios con descuento
+  const getPrices = (card) => {
+    const original = (Math.random() * (12 - 5) + 5).toFixed(2); // Precio original aleatorio
+    const discount = (original * 0.7).toFixed(2); // 30% de descuento
+    return discount; // Solo devolvemos el precio con descuento
   };
 
   return (
@@ -34,33 +36,7 @@ const Ofertas = () => {
           <Spinner animation="border" />
         </div>
       ) : (
-        <Row>
-          {cards.map((card) => {
-            const { original, discount } = getPrices();
-            return (
-              <Col key={card.id} sm={12} md={6} lg={4} className="mb-4">
-                <Card className="h-100">
-                  <Card.Img variant="top" src={card.card_images[0].image_url_small} alt={card.name} />
-                  <Card.Body>
-                    <Card.Title>{card.name}</Card.Title>
-                    <Card.Text>
-                      <span style={{ color: 'red', textDecoration: 'line-through' }}>
-                        ${original}
-                      </span>
-                      <br />
-                      <span style={{ color: 'green', fontSize: '1.25rem', fontWeight: 'bold' }}>
-                        ${discount}
-                      </span>
-                    </Card.Text>
-                    <Button variant="success" onClick={() => addToCart({ ...card, price: discount })}>
-                      Agregar al carrito
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
+        <CardGrid cards={cards} getRandomPrice={getPrices} />
       )}
     </div>
   );

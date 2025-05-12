@@ -10,8 +10,10 @@ const Home = ({ cards, loading }) => {
   const [typeFilter, setTypeFilter] = useState('');
   const [attributeFilter, setAttributeFilter] = useState('');
 
+  // Función para obtener un precio aleatorio
   const getRandomPrice = () => (Math.random() * (10 - 2) + 2).toFixed(2);
 
+  // Filtrar las cartas con base en los filtros
   const filteredCards = cards.filter((card) => {
     const matchesName = card.name.toLowerCase().includes(search.toLowerCase());
     const matchesType = typeFilter ? card.type === typeFilter : true;
