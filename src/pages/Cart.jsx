@@ -1,6 +1,8 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import CartItem from '../components/CartItem';
+import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useCart();
@@ -17,30 +19,11 @@ const Cart = () => {
           <Row>
             {cartItems.map((item, index) => (
               <Col md={6} lg={4} key={index} className="mb-4">
-                <Card className="h-100 position-relative">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    className="position-absolute top-0 end-0 m-2"
-                    onClick={() => removeFromCart(index)}
-                  >
-                    ❌
-                  </Button>
-                  <Card.Img
-                    variant="top"
-                    src={item.imageUrl || (item.card_images && item.card_images[0].image_url_small)}
-                    alt={item.name}
-                  />
-
-                  <Card.Body>
-                    <Card.Title>{item.name}</Card.Title>
-                    <Card.Text><strong>${item.price}</strong></Card.Text>
-                  </Card.Body>
-                </Card>
+                <CartItem item={item} onRemove={() => removeFromCart(index)} />
               </Col>
             ))}
           </Row>
-          <h4 className="mt-4">Total: ${total}</h4>
+          <CartTotal total={total} />
         </>
       )}
     </Container>
