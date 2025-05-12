@@ -1,19 +1,13 @@
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Ofertas from './pages/Ofertas';
-import Ingresar from './pages/Ingresar';
-import CrearCarta from './pages/CrearCarta';
-import EditarCarta from './pages/EditarCarta';
-import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // Estado para manejar errores
 
-  // Cargar cartas al inicio
   useEffect(() => {
     fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=100&offset=0')
       .then((res) => res.json())
@@ -23,6 +17,7 @@ function App() {
       })
       .catch((error) => {
         console.error('Error fetching cards:', error);
+        setError('Error al cargar los datos de cartas. Intenta nuevamente más tarde.');
         setLoading(false);
       });
   }, []);
@@ -35,14 +30,8 @@ function App() {
     <div className="d-flex flex-column min-vh-100">
       <Header />
       <main className="flex-grow-1 py-4 bg-light">
-        <Routes>
-          <Route path="/" element={<Home cards={cards} loading={loading} addCard={addCard} />} />
-          <Route path="/ofertas" element={<Ofertas />} />
-          <Route path="/carrito" element={<Cart />} />
-          <Route path="/ingresar" element={<Ingresar />} />
-          <Route path="/crear-carta" element={<CrearCarta addCard={addCard} />} />
-          <Route path="/editar-carta/:id" element={<EditarCarta />} />
-        </Routes>
+        {/* Pasa el estado de error a AppRoutes */}
+        <AppRoutes cards={cards} loading={loading} addCard={addCard} error={error} />
       </main>
       <Footer />
     </div>
