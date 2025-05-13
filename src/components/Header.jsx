@@ -5,9 +5,14 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
 const Header = () => {
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart(); // ← Agregamos clearCart
   const { isLoggedIn, userEmail, logout } = useAuth();
   const itemCount = cartItems.length;
+
+  const handleLogout = () => {
+    logout();
+    clearCart(); // ← Limpiamos el carrito al cerrar sesión
+  };
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className="shadow-sm">
@@ -23,7 +28,7 @@ const Header = () => {
             ) : (
               <>
                 <span className="text-white">Hola, {userEmail}</span>
-                <Button size="sm" variant="outline-light" onClick={logout}>
+                <Button size="sm" variant="outline-light" onClick={handleLogout}>
                   Cerrar sesión
                 </Button>
               </>
