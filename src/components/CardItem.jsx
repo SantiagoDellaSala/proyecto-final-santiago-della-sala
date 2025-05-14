@@ -1,8 +1,7 @@
-import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import '../styles/CardItem.css'; // Importa el archivo de estilos
+import '../styles/index.css';
 
 const CardItem = ({ card, getRandomPrice }) => {
     const { addToCart } = useCart();
@@ -11,42 +10,42 @@ const CardItem = ({ card, getRandomPrice }) => {
     const isCustomCard = !!card.id;
 
     return (
-        <Card className="card-item h-100 shadow-lg rounded">
-            <Card.Img
-                variant="top"
-                src={card.imageUrl || (card.card_images && card.card_images[0].image_url_small)}
-                alt={card.name}
-                className="card-item-img rounded-top"
-            />
-            <Card.Body className="text-center">
-                <Card.Title className="card-item-title">{card.name}</Card.Title>
-                <Card.Text className="card-item-type">
-                    {card.type} <br />
-                    <strong className="price">${price}</strong>
-                </Card.Text>
-                <div className="d-flex flex-column gap-2 mt-3">
-                    <Button
-                        size="sm"
-                        variant="primary"
-                        className="add-to-cart-btn"
-                        onClick={() => addToCart({ ...card, price })}
-                    >
-                        Agregar al carrito
-                    </Button>
-
-                    {isCustomCard && (
+        <div className="card-item-wrapper">
+            <Card className="card-item">
+                <Card.Img
+                    variant="top"
+                    src={card.imageUrl || (card.card_images && card.card_images[0].image_url_small)}
+                    alt={card.name}
+                    className="card-item-img"
+                />
+                <Card.Body className="card-body-custom">
+                    <Card.Title className="card-item-title">{card.name}</Card.Title>
+                    <Card.Text className="card-item-type">
+                        {card.type} <br />
+                        <strong className="price">${price}</strong>
+                    </Card.Text>
+                    <div className="button-group">
                         <Button
                             size="sm"
-                            variant="warning"
-                            className="edit-btn"
-                            onClick={() => navigate(`/editar-carta/${card.id}`, { state: { card } })}
+                            className="add-to-cart-btn"
+                            onClick={() => addToCart({ ...card, price })}
                         >
-                            Editar
+                            Agregar al carrito
                         </Button>
-                    )}
-                </div>
-            </Card.Body>
-        </Card>
+
+                        {isCustomCard && (
+                            <Button
+                                size="sm"
+                                className="edit-btn"
+                                onClick={() => navigate(`/editar-carta/${card.id}`, { state: { card } })}
+                            >
+                                Editar
+                            </Button>
+                        )}
+                    </div>
+                </Card.Body>
+            </Card>
+        </div>
     );
 };
 

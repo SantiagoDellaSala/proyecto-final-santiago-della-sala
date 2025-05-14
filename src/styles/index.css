@@ -1,0 +1,164 @@
+/* === GLOBAL RESET (index.css) === */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+/* === APP STYLES (App.css unificada) === */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* === CARD ITEM STYLES === */
+.card-item-wrapper {
+  padding: 1rem;
+}
+
+.card-item {
+  background-color: #1c1c1c;
+  border: 1px solid #3a3a3a;
+  border-radius: 12px;
+  color: #e0e0e0;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-item-img {
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+  background-color: #1c1c1c;
+  padding: 0.5rem;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+.card-body-custom {
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
+  background-color: transparent;
+}
+
+.card-item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.card-item-type {
+  font-size: 0.9rem;
+  color: #b8b8b8;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.05rem;
+  color: #caa56d;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.add-to-cart-btn {
+  background-color: #2e4e4e;
+  border: none;
+  color: #f0f0f0;
+  font-weight: 600;
+  width: 100%;
+  max-width: 200px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #1e3e3e;
+  transform: scale(1.02);
+}
+
+.edit-btn {
+  background-color: #5a3e1b;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  width: 100%;
+  max-width: 200px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #3e2b15;
+  transform: scale(1.02);
+}
+
+/* === CARD GRID === */
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.grid-item {
+  width: 100%;
+}
+
+/* === SMALL CARD === */
+.small-card {
+  max-width: 220px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+}
+
+.small-card-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
