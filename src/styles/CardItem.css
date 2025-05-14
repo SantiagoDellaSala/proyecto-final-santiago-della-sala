@@ -1,0 +1,72 @@
+/* CardItem.css */
+
+/* Diseño general de la carta */
+.card-item {
+  background-color: #1a1a1a; /* Fondo oscuro */
+  border: 1px solid #333; /* Borde suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-5px); /* Elevación de la carta */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+/* Imagen de la carta */
+.card-item-img {
+  width: 100%; /* Asegura que la imagen ocupe el 100% del ancho disponible */
+  max-height: 200px; /* Limita la altura máxima para mantener la consistencia */
+  object-fit: contain; /* Asegura que la imagen se ajuste dentro del contenedor sin cortarse */
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+
+/* Título de la carta */
+.card-item-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700; /* Dorado */
+  text-transform: uppercase; /* Mayúsculas */
+  margin-bottom: 0.5rem;
+}
+
+/* Tipo y precio de la carta */
+.card-item-type {
+  font-size: 0.9rem;
+  color: #b0b0b0; /* Gris claro */
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.1rem;
+  color: #ffd700; /* Dorado */
+  font-weight: bold;
+}
+
+/* Botones */
+.add-to-cart-btn {
+  background-color: #007bff; /* Azul brillante */
+  border-color: #0056b3; /* Azul oscuro */
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3; /* Azul oscuro en hover */
+}
+
+.edit-btn {
+  background-color: #f39c12; /* Naranja */
+  border-color: #e67e22; /* Naranja oscuro */
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #e67e22; /* Naranja oscuro en hover */
+}
+
+/* Espaciado y alineación de los botones */
+.d-flex {
+  justify-content: center; /* Alineación centrada */
+}

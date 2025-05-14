@@ -32,42 +32,51 @@ const Home = ({ cards, loading }) => {
   };
 
   return (
-    <div className="container">
-      <h2 className="mb-4">Cartas destacadas</h2>
+    <div className="container-fluid bg-dark text-white min-vh-100 py-4">
+      <div className="container-fluid px-5">
+        <img
+          src="/Exodia-Banner.png"  // o {exodiaBanner} si lo importaste
+          alt="Exodia Banner"
+          className="img-fluid mb-4 rounded"
+          style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+        />
 
-      <CardFilters
-        search={search}
-        setSearch={setSearch}
-        typeFilter={typeFilter}
-        setTypeFilter={setTypeFilter}
-        attributeFilter={attributeFilter}
-        setAttributeFilter={setAttributeFilter}
-        uniqueTypes={uniqueTypes}
-        uniqueAttributes={uniqueAttributes}
-        clearFilters={clearFilters}
-      />
+        <h2 className="mb-4">Cartas destacadas</h2>
 
-      <div className="text-end my-3">
-        <Link to="/crear-carta">
-          <Button variant="success">Agregar Nueva Carta</Button>
-        </Link>
-      </div>
+        <CardFilters
+          search={search}
+          setSearch={setSearch}
+          typeFilter={typeFilter}
+          setTypeFilter={setTypeFilter}
+          attributeFilter={attributeFilter}
+          setAttributeFilter={setAttributeFilter}
+          uniqueTypes={uniqueTypes}
+          uniqueAttributes={uniqueAttributes}
+          clearFilters={clearFilters}
+        />
 
-      {loading ? (
-        <div className="text-center">
-          <Spinner animation="border" />
+        <div className="text-end my-3">
+          <Link to="/crear-carta">
+            <Button variant="success">Agregar Nueva Carta</Button>
+          </Link>
         </div>
-      ) : (
-        <>
-          <CardGrid cards={visibleCards} getRandomPrice={getRandomPrice} />
 
-          {visibleCount < filteredCards.length && (
-            <div className="text-center my-4">
-              <Button onClick={() => setVisibleCount(visibleCount + 12)}>Ver más</Button>
-            </div>
-          )}
-        </>
-      )}
+        {loading ? (
+          <div className="text-center">
+            <Spinner animation="border" />
+          </div>
+        ) : (
+          <>
+            <CardGrid cards={visibleCards} getRandomPrice={getRandomPrice} />
+
+            {visibleCount < filteredCards.length && (
+              <div className="text-center my-4">
+                <Button onClick={() => setVisibleCount(visibleCount + 12)}>Ver más</Button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

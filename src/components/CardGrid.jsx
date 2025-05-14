@@ -1,17 +1,15 @@
-// CardGrid.jsx
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
 import CardItem from './CardItem';
-
+import '../styles/CardGrid.css';
 const CardGrid = ({ cards, getRandomPrice }) => {
   return (
-    <Row>
+    <div className="custom-grid">
       {cards.map((card, index) => (
-        <Col key={index} sm={12} md={6} lg={4} className="mb-4">
+        <div key={index} className="grid-item">
           <CardItem card={card} getRandomPrice={getRandomPrice} />
-        </Col>
+        </div>
       ))}
-    </Row>
+    </div>
   );
 };
 
