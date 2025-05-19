@@ -5,59 +5,58 @@ import AppRoutes from './routes/AppRoutes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Obtener productos desde la API
+  const addToCart = (product) => {
+  setCart((prevCart) => {
+    const existing = prevCart.find((item) => item.id === product.id);
+    if (existing) {
+      return prevCart.map((item) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      return [...prevCart, { ...product, quantity: 1 }];
+    }
+  });
+};
+
+  const removeFromCart = (id) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) => item.id !== id)
+    );
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0');
-        const data = await res.json();
+    fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=12&offset=0')
+      .then((res) => {
+        if (!res.ok) throw new Error('Error al cargar productos');
+        return res.json();
+      })
+      .then((data) => {
         setProducts(data.data);
         setLoading(false);
-      } catch (err) {
-        setError('Hubo un error al cargar los productos.');
+      })
+      .catch((err) => {
+        setError(err.message);
         setLoading(false);
-      }
-    };
-    fetchData();
+      });
   }, []);
-
-  // Agregar producto al carrito
-  const addToCart = (product) => {
-    const existingProduct = cart.find(item => item.id === product.id);
-    if (existingProduct) {
-      const updatedCart = cart.map(item =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      setCart(updatedCart);
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
-    }
-  };
-
-  // Eliminar producto del carrito
-  const removeFromCart = (productId) => {
-    const updatedCart = cart.filter(item => item.id !== productId);
-    setCart(updatedCart);
-  };
-
-  // Calcular la cantidad total de productos
-  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
-      <Header cartCount={cartCount} />
+      <Header cartItemCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />
       <main className="container my-4">
         <AppRoutes
           products={products}
           loading={loading}
           error={error}
-          addToCart={addToCart}
           cart={cart}
+          addToCart={addToCart}
           removeFromCart={removeFromCart}
         />
       </main>

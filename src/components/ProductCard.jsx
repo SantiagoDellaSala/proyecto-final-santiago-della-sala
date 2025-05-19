@@ -3,21 +3,33 @@ import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product, onAddToCart }) => (
   <Card
-    bg="warning"
+    bg="light"
     border="dark"
     text="dark"
-    className="shadow rounded"
+    className="shadow rounded text-center"
+    style={{ width: '16rem', minHeight: '26rem', margin: '10px' }}
   >
-<Link to={`/producto/${product.id}`}>
-  <Card.Img src={product.card_images[0]?.image_url_small} />
-</Link>
+    <Link to={`/producto/${product.id}`}>
+      <Card.Img
+        variant="top"
+        src={product.card_images[0]?.image_url_small}
+        alt={product.name}
+        style={{ height: '180px', objectFit: 'contain', padding: '10px' }}
+      />
+    </Link>
 
-    <Card.Body>
-      <Card.Title className="fw-bold fst-italic">{product.name}</Card.Title>
-      <Card.Text className="fst-italic">{product.type}</Card.Text>
+    <Card.Body className="d-flex flex-column justify-content-between">
+      <div>
+        <Card.Title className="fw-bold fst-italic" style={{ fontSize: '1rem' }}>
+          {product.name}
+        </Card.Title>
+        <Card.Text className="fst-italic text-muted" style={{ fontSize: '0.9rem' }}>
+          {product.type}
+        </Card.Text>
+      </div>
       <Button
         variant="outline-dark"
-        className="shadow-sm fw-bold"
+        className="shadow-sm fw-bold mt-2"
         onClick={() => onAddToCart(product)}
       >
         Agregar al carrito

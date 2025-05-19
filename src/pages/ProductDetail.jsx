@@ -1,8 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
 
@@ -12,9 +14,7 @@ const ProductDetail = () => {
         if (!res.ok) throw new Error('No se pudo cargar el producto');
         return res.json();
       })
-      .then((data) => {
-        setProduct(data.data[0]);
-      })
+      .then((data) => setProduct(data.data[0]))
       .catch((err) => setError(err.message));
   }, [id]);
 
@@ -31,6 +31,10 @@ const ProductDetail = () => {
       />
       <p><strong>Tipo:</strong> {product.type}</p>
       <p><strong>Descripción:</strong> {product.desc}</p>
+
+      <Button variant="secondary" className="mt-3" onClick={() => navigate('/')}>
+        ← Volver
+      </Button>
     </div>
   );
 };
