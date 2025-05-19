@@ -1,16 +1,24 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ cartCount }) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#">Yu-Gi-Oh! - Shop</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbar" />
-        <Navbar.Collapse id="navbar">
+        <Navbar.Brand as={Link} to="/">Tienda de Cartas</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse>
           <Nav className="ms-auto">
-            <Nav.Link href="#">Inicio</Nav.Link>
-            <Nav.Link href="#">Carrito</Nav.Link>
-            <Nav.Link href="#">Ingresar</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/carrito">
+              Carrito{' '}
+              {cartCount > 0 && (
+                <Badge bg="warning" text="dark">
+                  {cartCount}
+                </Badge>
+              )}
+            </Nav.Link>
+            <Nav.Link as={Link} to="/login">Ingresar</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
