@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#">GuanteX</Navbar.Brand>
+        <Navbar.Brand href="#">Yu-Gi-Oh! - Shop</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar" />
         <Navbar.Collapse id="navbar">
           <Nav className="ms-auto">
