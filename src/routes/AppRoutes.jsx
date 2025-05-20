@@ -3,8 +3,9 @@ import Home from '../pages/Home';
 import CartPage from '../pages/CartPage';
 import ProductDetail from '../pages/ProductDetail';
 import Login from '../pages/LoginPage';
+import RutaPrivada from './RutaPrivada'; // Importá esto
 
-function AppRoutes({ products, loading, error, cart, addToCart, removeFromCart }) {
+function AppRoutes({ products, loading, error, cart, addToCart }) {
   return (
     <Routes>
       <Route
@@ -21,10 +22,9 @@ function AppRoutes({ products, loading, error, cart, addToCart, removeFromCart }
       <Route
         path="/carrito"
         element={
-          <CartPage
-            cart={cart}
-            onRemoveFromCart={removeFromCart}
-          />
+          <RutaPrivada>
+            <CartPage cart={cart} />
+          </RutaPrivada>
         }
       />
       <Route path="/login" element={<Login />} />
