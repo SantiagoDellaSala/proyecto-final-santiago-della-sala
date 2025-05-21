@@ -26,10 +26,8 @@ function App() {
 };
 
   const removeFromCart = (id) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item.id !== id)
-    );
-  };
+  setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+};
 
   useEffect(() => {
     fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=12&offset=0')
