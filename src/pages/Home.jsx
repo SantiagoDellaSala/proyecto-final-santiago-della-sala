@@ -1,7 +1,7 @@
 import ProductList from '../components/ProductList';
 import { Spinner, Alert } from 'react-bootstrap';
 
-const Home = ({ products, loading, error, addToCart }) => {
+const Home = ({ products, loading, error }) => {
   if (loading) {
     return (
       <div className="text-center my-5">
@@ -22,10 +22,9 @@ const Home = ({ products, loading, error, addToCart }) => {
   return (
     <>
       <h1 className="mb-4">Cartas destacadas</h1>
-      <ProductList products={products} onAddToCart={addToCart} />
+      <ProductList products={products} />
     </>
   );
 };
 
 export default Home;
-

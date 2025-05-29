@@ -2,32 +2,14 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AppRoutes from './routes/AppRoutes';
+import { CarritoProvider, useCarrito } from './context/CarritoContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  const [cart, setCart] = useState([]);
+function AppContent() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const addToCart = (product) => {
-  setCart((prevCart) => {
-    const existing = prevCart.find((item) => item.id === product.id);
-    if (existing) {
-      return prevCart.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    } else {
-      return [...prevCart, { ...product, quantity: 1 }];
-    }
-  });
-};
-
-  const removeFromCart = (id) => {
-  setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-};
+  const { cart } = useCarrito();
 
   useEffect(() => {
     fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=12&offset=0')
@@ -49,17 +31,18 @@ function App() {
     <>
       <Header cartItemCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />
       <main className="container my-4">
-        <AppRoutes
-          products={products}
-          loading={loading}
-          error={error}
-          cart={cart}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-        />
+        <AppRoutes products={products} loading={loading} error={error} />
       </main>
       <Footer />
     </>
+  );
+}
+
+function App() {
+  return (
+    <CarritoProvider>
+      <AppContent />
+    </CarritoProvider>
   );
 }
 

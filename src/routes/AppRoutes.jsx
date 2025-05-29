@@ -5,29 +5,18 @@ import ProductDetail from '../pages/ProductDetail';
 import Login from '../pages/LoginPage';
 import RutaPrivada from './RutaPrivada';
 
-function AppRoutes({ products, loading, error, cart, addToCart, removeFromCart }) {
+function AppRoutes({ products, loading, error }) {
   return (
     <Routes>
+      <Route path="/" element={<Home products={products} loading={loading} error={error} />} />
       <Route
-        path="/"
+        path="/carrito"
         element={
-          <Home
-            products={products}
-            loading={loading}
-            error={error}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-          />
+          <RutaPrivada>
+            <CartPage />
+          </RutaPrivada>
         }
       />
-      <Route
-  path="/carrito"
-  element={
-    <RutaPrivada>
-      <CartPage cart={cart} removeFromCart={removeFromCart} />
-    </RutaPrivada>
-  }
-/>
       <Route path="/login" element={<Login />} />
       <Route path="/producto/:id" element={<ProductDetail />} />
     </Routes>
