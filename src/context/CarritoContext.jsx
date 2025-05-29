@@ -30,9 +30,36 @@ export const CarritoProvider = ({ children }) => {
     setCart([]);
   };
 
+  const incrementQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decrementQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+
   return (
     <CarritoContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        incrementQuantity,
+        decrementQuantity,
+      }}
+
     >
       {children}
     </CarritoContext.Provider>

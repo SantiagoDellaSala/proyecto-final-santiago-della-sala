@@ -1,8 +1,14 @@
 import { useCarrito } from '../context/CarritoContext';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, ButtonGroup } from 'react-bootstrap';
 
 const Cart = () => {
-  const { cart, removeFromCart, clearCart } = useCarrito();
+  const {
+    cart,
+    removeFromCart,
+    clearCart,
+    incrementQuantity,
+    decrementQuantity,
+  } = useCarrito();
 
   const total = cart.reduce((sum, item) => sum + item.quantity * (item.price || 100), 0);
 
@@ -32,7 +38,15 @@ const Cart = () => {
                 />
               </td>
               <td>{item.name}</td>
-              <td>{item.quantity}</td>
+              <td>
+                <ButtonGroup size="sm">
+                  <Button variant="secondary" onClick={() => decrementQuantity(item.id)}>-</Button>
+                  <Button variant="light" disabled>
+                    {item.quantity}
+                  </Button>
+                  <Button variant="secondary" onClick={() => incrementQuantity(item.id)}>+</Button>
+                </ButtonGroup>
+              </td>
               <td>
                 <Button
                   variant="danger"

@@ -1,8 +1,10 @@
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const RutaPrivada = ({ children }) => {
-  const autenticado = localStorage.getItem('isAuthenticated') === 'true';
-  return autenticado ? children : <Navigate to="/login" />;
+  const { isAuthenticated } = useAuth();
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default RutaPrivada;

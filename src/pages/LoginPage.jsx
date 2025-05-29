@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simular login exitoso con cualquier dato
-    localStorage.setItem('isAuthenticated', 'true');
+    login();
 
-    // Redirigir al home
     navigate('/');
   };
 

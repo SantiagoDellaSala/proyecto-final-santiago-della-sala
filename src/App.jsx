@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AppRoutes from './routes/AppRoutes';
-import { CarritoProvider, useCarrito } from './context/CarritoContext';
+import { CarritoProvider } from './context/CarritoContext';
+import { AuthProvider } from './context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppContent() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { cart } = useCarrito();
 
   useEffect(() => {
     fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=12&offset=0')
@@ -29,7 +29,7 @@ function AppContent() {
 
   return (
     <>
-      <Header cartItemCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />
+      <Header />
       <main className="container my-4">
         <AppRoutes products={products} loading={loading} error={error} />
       </main>
@@ -40,9 +40,11 @@ function AppContent() {
 
 function App() {
   return (
-    <CarritoProvider>
-      <AppContent />
-    </CarritoProvider>
+    <AuthProvider>
+      <CarritoProvider>
+        <AppContent />
+      </CarritoProvider>
+    </AuthProvider>
   );
 }
 

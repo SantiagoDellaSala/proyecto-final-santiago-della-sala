@@ -1,14 +1,19 @@
 import { Navbar, Nav, Container, Badge, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useCarrito } from '../context/CarritoContext';
 
-const Header = ({ cartItemCount }) => {
+const Header = () => {
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('isAuthenticated') === 'true';
+  const { isAuthenticated, logout } = useAuth();
+  const { cart } = useCarrito();
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
+    logout();
     navigate('/login');
   };
+
+  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="sticky-top shadow">
@@ -18,15 +23,17 @@ const Header = ({ cartItemCount }) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center">
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/carrito">
-              Carrito{' '}
-              {cartItemCount > 0 && (
-                <Badge bg="warning" text="dark">
-                  {cartItemCount}
-                </Badge>
-              )}
-            </Nav.Link>
-            {!isLoggedIn ? (
+            {isAuthenticated && (
+              <Nav.Link as={Link} to="/carrito">
+                Carrito{' '}
+                {cartItemCount > 0 && (
+                  <Badge bg="warning" text="dark">
+                    {cartItemCount}
+                  </Badge>
+                )}
+              </Nav.Link>
+            )}
+            {!isAuthenticated ? (
               <Nav.Link as={Link} to="/login">Ingresar</Nav.Link>
             ) : (
               <Button variant="outline-light" size="sm" onClick={handleLogout}>
@@ -41,4 +48,3 @@ const Header = ({ cartItemCount }) => {
 };
 
 export default Header;
-
