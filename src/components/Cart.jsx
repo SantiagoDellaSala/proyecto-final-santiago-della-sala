@@ -1,35 +1,63 @@
-import { ListGroup, Button, Badge } from 'react-bootstrap';
+import { useCarrito } from '../context/CarritoContext';
+import { Button, Table } from 'react-bootstrap';
 
-const Cart = ({ cartItems, onRemoveFromCart }) => {
-  const total = cartItems.reduce((sum, item) => sum + (item.quantity * 100), 0);
+const Cart = () => {
+  const { cart, removeFromCart, clearCart } = useCarrito();
 
-  if (cartItems.length === 0) return <p>El carrito está vacío.</p>;
+  const total = cart.reduce((sum, item) => sum + item.quantity * (item.price || 100), 0);
+
+  if (cart.length === 0) {
+    return <p>Tu carrito está vacío.</p>;
+  }
 
   return (
     <>
-      <h2>Carrito</h2>
-      <ListGroup>
-        {cartItems.map((item) => (
-          <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
-            <div>
-              {item.name} <Badge bg="secondary">x{item.quantity}</Badge>
-            </div>
-            <div>
-              {/* Precio ficticio */}
-              ${item.quantity * 100}
-              <Button
-                variant="outline-danger"
-                size="sm"
-                className="ms-3"
-                onClick={() => onRemoveFromCart(item.id)}
-              >
-                Eliminar
-              </Button>
-            </div>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
-      <h4 className="mt-3">Total: ${total}</h4>
+      <Table bordered hover>
+        <thead className="table-dark text-center">
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody className="text-center align-middle">
+          {cart.map((item) => (
+            <tr key={item.id}>
+              <td>
+                <img
+                  src={item.card_images[0]?.image_url_small}
+                  alt={item.name}
+                  style={{ height: '60px' }}
+                />
+              </td>
+              <td>{item.name}</td>
+              <td>{item.quantity}</td>
+              <td>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Eliminar
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <h4>Total estimado: ${total}</h4>
+        <div>
+          <Button variant="outline-danger" onClick={clearCart} className="me-2">
+            Vaciar carrito
+          </Button>
+          <Button variant="success" disabled>
+            Finalizar compra
+          </Button>
+        </div>
+      </div>
     </>
   );
 };
